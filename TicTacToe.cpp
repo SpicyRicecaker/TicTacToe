@@ -71,17 +71,22 @@ int main(){
       cout << "Please enter a valid row letter followed by a valid column number :)" << endl;
     }
 
-    if(board[decMove[0]][decMove[1]] == BLANK){
-      if(turn = X_TURN){
-	board[decMove[0]][decMove[1]] == X_PIECE;
+    
+    
+    if(board[decMove[1]-48][decMove[0]-48] == BLANK){
+      if(turn == X_TURN){
+	board[decMove[1]-48][decMove[0]-48] = X_PIECE;
 	turn = O_TURN;
       }else{
-	board[decMove[0]][decMove[1]] == O_PIECE;
+	board[decMove[1]-48][decMove[0]-48] = O_PIECE;
         turn = X_TURN;
       }
+    }else{
+      cout << "Invalid Input" << endl;
     }
 
-    cout << decMove << endl;
+    
+    
 
   }
 
