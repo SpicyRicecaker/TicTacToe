@@ -8,6 +8,8 @@
 
 void init(int (&board)[3][3], int& turn);
 void printBoard(int (&board)[3][3]);
+bool checkWin(int pc, int (&board)[3][3]);
+bool checkTie(int (&board)[3][3]);
 
 using namespace std;
 
@@ -35,6 +37,31 @@ void printBoard(int (&board)[3][3]){
     }
     cout << "\n" << endl;
   }
+}
+
+bool checkWin(int pc, int (&board)[3][3]){
+  if((board[0][0]==pc && board[0][1]==pc && board[0][2]==pc) || (board[1][0]==pc && board[1][1]==pc && board[1][2]==pc) || (board[2][0]==pc && board[2][1]==pc && board[2][2]==pc)){
+  }else if ((board[0][0]==pc && board[1][0]==pc && board[2][0]==pc) || (board[1][0]==pc && board[1][1]==pc && board[1][2]==pc) || (board[2][0]==pc && board[2][1]==pc && board[2][2]==pc)){
+  }else if((board[0][0]==pc && board[1][1]==pc && board[2][2]==pc) || (board[0][2]==pc && board[1][1]==pc && board[2][0]==pc)){ 
+  }else{
+    return false;
+  }
+  return true;
+}
+
+bool checkTie(int (&board)[3][3]){
+  int pcs = 0;
+  for(int a = 0; a < 3; a++){
+    for(int b = 0; b < 3; b++){
+      if(board[b][a]!=BLANK){
+	pcs++;
+      }
+    }
+  }
+  if(pcs==9){
+    return true;
+  }
+  return false;
 }
 
 int main(){
@@ -71,8 +98,6 @@ int main(){
       cout << "Please enter a valid row letter followed by a valid column number :)" << endl;
     }
 
-    
-    
     if(board[decMove[1]-48][decMove[0]-48] == BLANK){
       if(turn == X_TURN){
 	board[decMove[1]-48][decMove[0]-48] = X_PIECE;
@@ -82,12 +107,43 @@ int main(){
         turn = X_TURN;
       }
     }else{
-      cout << "Invalid Input" << endl;
+      cout << "Make sure you choose an empty square :)" << endl;
     }
 
-    
-    
+    if(checkWin(X_PIECE, board)==true){
+      cout << "X Wins!" << endl;
+      xWins++;
+    }else if(checkWin(O_PIECE, board)==true){
+      cout << "O Wins!" << endl;
+      oWins++;
+    }else if(checkTie(board)==true){
+      cout << "It's a tie!" << endl;
+    }else{
+      continue;
+    }
 
+    cout << "Play again? (Y/N)" << endl;
+
+    char in[3] = "";
+    
+    while(true){
+      cin.get(in, 999);
+      cin.clear();
+      cin.ignore(999, '\n');
+
+      if(strlen(in)==1 && (in[0] == 'Y' || in[0] == 'y' || in[0] == 'N' || in[0] == 'n')){
+	break;
+      }
+
+      cout << "Please enter Y or N" << endl;
+    }
+
+    if(in[0] == 'N'){
+      running = !running;
+    }else {
+      cout << "X Wins: " << xWins << ", O Wins: " << oWins << endl;
+      init(board, turn);
+    }
   }
 
 }
