@@ -148,6 +148,9 @@ int main(){
       continue;
     }
 
+    printBoard(board);
+    cout << "X Wins: " << xWins << ", O Wins: " << oWins << endl;
+    
     //Prompt the user if they want to play again, accepting only Y,y,N, or n 
     cout << "Play again? (Y/N)" << endl;
 
@@ -166,10 +169,9 @@ int main(){
     }
 
     //If they say no, exit the program, otherwise reset the board and continue
-    if(in[0] == 'N'){
+    if(in[0] == 'N'|| in[0] == 'n'){
       running = !running;
     }else {
-      cout << "X Wins: " << xWins << ", O Wins: " << oWins << endl;
       init(board);
     }
   }
